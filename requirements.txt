@@ -1,25 +1,19 @@
 numpy
-tensorflow
-xmltodict
+tensorboard==2.5.0
+xmltodict==0.12.0
 matplotlib
 requests
 pyarrow
-xarray
-scipy
+xarray==0.16.2
 Cartopy
-pandas
-scikit_image
-apache-beam
-#pyproj==3.0.1
-pyproj
-ipython
-PyYAML
-Cython
+pandas==1.1.5
+scikit-image==0.17.2
+apache-beam==2.29.0
+pyproj==3.0.1
+PyYAML==5.4.1
+Cython==0.29.23
 pyshp
 six
-Shapely
-#Shapely --install-option='--no-binary'
-#Shapely==1.7.1
-#Shapely==1.7.1 --install-option='--no-binary'
+Shapely==1.7.1
 seaborn
-Cerberus
+Cerberus==1.3.3
