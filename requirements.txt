@@ -1,0 +1,25 @@
+numpy
+tensorflow
+xmltodict
+matplotlib
+requests
+pyarrow
+xarray
+scipy
+Cartopy
+pandas
+scikit_image
+apache-beam
+#pyproj==3.0.1
+pyproj
+ipython
+PyYAML
+Cython
+pyshp
+six
+Shapely
+#Shapely --install-option='--no-binary'
+#Shapely==1.7.1
+#Shapely==1.7.1 --install-option='--no-binary'
+seaborn
+Cerberus
