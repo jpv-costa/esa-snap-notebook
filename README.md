@@ -20,7 +20,7 @@ $ docker pull screamprobation/esa-snap-notebook:snap-8
 Then, you can run the image with a mounted volume like so:
 
 ```console
-$ docker run -p 8888:8888 -v /path/to/local/folder screamprobation/esa-snap-notebook:snap-8
+$ docker run -p 8888:8888 -v /path/to/local/folder:/home/jovyan/work screamprobation/esa-snap-notebook:snap-8
 ```
 
 If the previous command runs successfully, you should view the jupyterlab link on the terminal screen, which you can access by copying and pasting it on your browser.
