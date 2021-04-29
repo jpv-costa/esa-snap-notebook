@@ -1,26 +1,31 @@
-# ESA SNAP 8 Jupyter Notebook Images
+# ESA Sentinel Toolboxes (SNAP 8) - Jupyter Python Notebook Image
 
-Ubuntu based Docker image of the [ESA SNAP toolbox (SNAP 8)](http://step.esa.int/main/toolboxes/snap/), installed as "snappy-esa" to avoid package conflicts, along with jupyter and other scipy, numpy, pandas, and ML frameworks, such as scikit-learn and tensorflow 2.X.
+[![Python 3.6](https://img.shields.io/badge/python-3.6-blue.svg)](https://www.python.org/downloads/release/python-360/)
+![Docker Cloud Automated build](https://img.shields.io/docker/cloud/automated/screamprobation/esa-snap-notebook)
+![Docker Cloud Build Status](https://img.shields.io/docker/cloud/build/screamprobation/esa-snap-notebook)
+![Docker Image Size (tag)](https://img.shields.io/docker/image-size/screamprobation/esa-snap-notebook/snap-8)
+![Docker Pulls](https://img.shields.io/docker/pulls/screamprobation/esa-snap-notebook)
+![Docker Stars](https://img.shields.io/docker/stars/screamprobation/esa-snap-notebook)
 
-# Docker Hub
-
-Image available in the [following link](https://hub.docker.com/repository/docker/screamprobation/esa-snap-notebook).
+Ubuntu based [Docker](https://www.docker.com/) image of the [ESA SNAP toolbox (SNAP 8)](http://step.esa.int/main/toolboxes/snap/), installed with: [jupyter](https://jupyter.org/) for efficient prototyping; [apache-beam](https://beam.apache.org/) for parallel pre-procesing of remote sensing imagery; [xarray](http://xarray.pydata.org/en/stable/); [dask](https://dask.org/); [scipy](https://www.scipy.org/); [matplotlib](https://matplotlib.org/); [seaborn](https://seaborn.pydata.org/); [numpy](https://numpy.org/); [pandas](https://pandas.pydata.org/); and ML frameworks, such as [scikit-learn](https://scikit-learn.org/stable/) and [tensorflow 2.X](https://www.tensorflow.org/).
 
 # Download
 
-To download the image, you can pull it from the docker hub repository with the following command:
+The image is available on a [Docker Hub repository](https://hub.docker.com/repository/docker/screamprobation/esa-snap-notebook). To download it, you can pull it with the following docker command (make sure you have docker installed):
 
 ```console
 $ docker pull screamprobation/esa-snap-notebook:snap-8
 ```
 
-Then, you can run the image with a shared volume like so:
+Then, you can run the image with a mounted volume like so:
 
 ```console
 $ docker run -p 8888:8888 -v /path/to/local/folder screamprobation/esa-snap-notebook:snap-8
 ```
 
-# Importing SNAP 8
+If the previous command runs successfully, you should view the jupyterlab link on the terminal screen, which you can access by copying and pasting it on your browser.
+
+# Importing snappy
 
 The python wrapper of SNAP 8 is named snappy. However, there's also a package denominated [snappy](https://pypi.org/project/python-snappy/) from google, which is used by [xarray](https://pypi.org/project/xarray/). Consequently, to avoid any conflicts, the SNAP package was renamed `snappy_esa`, which you can import this package as follows:
 
@@ -33,3 +38,27 @@ snappy_esa.ProductIO.readProduct("/path/to/product")
 # Apply SNAP operations on product
 # ...
 ```
+
+[This](https://senbox.atlassian.net/wiki/spaces/SNAP/pages/19300362/How+to+use+the+SNAP+API+from+Python) resource might be helpful if you want to learn how to use the SNAP API in Python. [This](https://github.com/techforspace/sentinel) tutorial and [these](https://github.com/senbox-org/snap-engine/tree/master/snap-python/src/main/resources/snappy/examples) example implementations might also be of use.
+
+# Additional Info
+
+Given that `snappy` with python from v.3.7 onwards raises an `Import error - snappy / jpy`, the packages are installed in an anaconda python v.3.6 environment dubbed `python36`, as mentioned [here](https://forum.step.esa.int/t/modulenotfounderror-no-module-named-jpyutil/25785/3?u=screamprobation). This environment is set to be the default conda environment; however, if you get an error importing the package, make sure you are using the `python36` kernel.
+
+# Memory usage limit
+
+By default, the notebook memory limit of this image was set to 6GB. If you wish to alter this value, you'll have to create a Dockerfile pulling from `screamprobation/esa-snap-notebook:snap-8`, and set the environment variable MEM_LIMIT to the desired limit (in bytes), as such:
+
+```dockerfile
+FROM screamprobation/esa-snap-notebook:snap-8
+# Set memory usage limit to 6GB
+ENV MEM_LIMIT 6442450944
+```
+
+Then you can build your image on the terminal, which you could name, for instance, `updated-esa-notebook`:
+
+```
+$ docker build -t updated-esa-notebook .
+```
+
+Finally, you can run the updated image, as you did in [this section](#Download), substituing `screamprobation/esa-snap-notebook:snap-8` for your new image name: `updated-esa-notebook`.
