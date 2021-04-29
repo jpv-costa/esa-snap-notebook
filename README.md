@@ -7,7 +7,7 @@
 ![Docker Pulls](https://img.shields.io/docker/pulls/screamprobation/esa-snap-notebook)
 ![Docker Stars](https://img.shields.io/docker/stars/screamprobation/esa-snap-notebook)
 
-Ubuntu based [Docker](https://www.docker.com/) image of the [ESA SNAP toolbox (SNAP 8)](http://step.esa.int/main/toolboxes/snap/), installed with: [jupyter](https://jupyter.org/) for efficient prototyping; [apache-beam](https://beam.apache.org/) for parallel pre-procesing of remote sensing imagery; [xarray](http://xarray.pydata.org/en/stable/); [dask](https://dask.org/); [scipy](https://www.scipy.org/); [matplotlib](https://matplotlib.org/); [seaborn](https://seaborn.pydata.org/); [numpy](https://numpy.org/); [pandas](https://pandas.pydata.org/); and ML frameworks, such as [scikit-learn](https://scikit-learn.org/stable/) and [tensorflow 2.X](https://www.tensorflow.org/).
+Ubuntu-based [Docker](https://www.docker.com/) image of the [ESA SNAP toolbox (SNAP 8)](http://step.esa.int/main/toolboxes/snap/), installed with: [jupyter](https://jupyter.org/) for efficient prototyping; [apache-beam](https://beam.apache.org/) for parallel pre-procesing of remote sensing imagery; [xarray](http://xarray.pydata.org/en/stable/); [dask](https://dask.org/); [scipy](https://www.scipy.org/); [matplotlib](https://matplotlib.org/); [seaborn](https://seaborn.pydata.org/); [numpy](https://numpy.org/); [pandas](https://pandas.pydata.org/); and ML frameworks, such as [scikit-learn](https://scikit-learn.org/stable/) and [tensorflow 2.X](https://www.tensorflow.org/).
 
 # Download
 
