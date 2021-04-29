@@ -6,33 +6,21 @@ ARG conda_env
 ARG py_ver=3.6
 
 # you can add additional libraries you want conda to install by listing them below the first line and ending with "&& \"
-RUN conda create --quiet --yes -p $CONDA_DIR/envs/$conda_env python=$py_ver ipython ipykernel \    
-    'beautifulsoup4' \
-    'bokeh' \
-    'bottleneck' \
-    'cloudpickle' \
+RUN conda create --quiet --yes -p $CONDA_DIR/envs/$conda_env python=$py_ver ipython ipykernel \            
     'dask' \
     'dill' \
     'h5py' \
-    'ipywidgets' \
-    'ipympl'\
-    'matplotlib-base' \
-    'numba' \
-    'numexpr' \
-    'pandas' \
-    'patsy' \
+    'ipywidgets' \    
+    'matplotlib-base' \        
+    'pandas' \    
     'protobuf' \
-    'pytables' \
+    'jupyter-resource-usage' \
     'scikit-image' \
     'scikit-learn' \
     'scipy' \
-    'seaborn' \
-    'sqlalchemy' \
-    'statsmodels' \
-    'sympy' \
-    'vincent' \
-    'widgetsnbextension'\
-    'xlrd' && \
+    'seaborn' \    
+    'statsmodels' \        
+    'widgetsnbextension' && \
     conda clean --all -f -y
 
 FROM mundialis/esa-snap:ubuntu
@@ -116,6 +104,9 @@ ENV PATH $CONDA_DIR/envs/${conda_env}/bin:$PATH
 ENV CONDA_DEFAULT_ENV ${conda_env}
 
 ENV JUPYTER_ENABLE_LAB TRUE
+
+# Set memory usage limit to 6GB
+ENV MEM_LIMIT 6442450944
 
 # Configure container startup
 ENTRYPOINT ["tini", "-g", "--"]

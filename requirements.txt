@@ -1,4 +1,4 @@
-numpy
+numpy==1.19.5
 tensorboard==2.5.0
 xmltodict==0.12.0
 matplotlib
@@ -13,7 +13,7 @@ pyproj==3.0.1
 PyYAML==5.4.1
 Cython==0.29.23
 pyshp
-six
+six==1.15.0
 Shapely==1.7.1
 seaborn
 Cerberus==1.3.3
