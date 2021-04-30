@@ -41,8 +41,9 @@ ENV CONDA_DIR=/opt/conda \
     SHELL=/bin/bash \
     NB_USER=$NB_USER \
     NB_UID=$NB_UID \
-    NB_GID=$NB_GID \
-    PATH=$CONDA_DIR/bin:$PATH
+    NB_GID=$NB_GID
+
+ENV PATH=$CONDA_DIR/bin:$PATH
 
 WORKDIR /home/$NB_USER
 COPY requirements.txt ./
