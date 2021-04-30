@@ -47,10 +47,10 @@ Given that `snappy` with python from v.3.7 onwards raises an `Import error - sna
 
 # Change default Jupyter memory usage limit and CPU limit
 
-By default, the notebook memory limit of this image was set to 6GB, with a CPU limit of 6 cores. If you wish to alter these values, you'll have to build an image with this repository's Dockerfile, passing as `--build-arg` the desired memory limit (in bytes) and CPU limit values as the MEM_LIMIT and CPU_LIMIT, respectively. For example, to build an image with a limit of 4GB (4294967296 bytes) and 4 cores, with the tag `updated-esa-notebook`, you can use this command:
+By default, the notebook memory limit of this image was set to **6GB**, with a CPU limit of **6** cores. If you wish to alter these values, you'll have to build an image with this repository's Dockerfile, passing as `--build-arg` the desired memory limit (in bytes) and CPU limit values with the `MEM_LIMIT` and `CPU_LIMIT` arguments, respectively. For example, to build an image with a limit of **4GB** (4294967296 bytes) and **4** cores, with the tag `updated-esa-notebook`, you can use this command:
 
 ```console
-$ docker build https://github.com/jpv-costa/ESA-SNAP-notebook.git -t updated-esa-notebook --build-arg MEM_LIMIT=4294967296 CPU_LIMIT=4
+$ docker build -t updated-esa-notebook --build-arg MEM_LIMIT=4294967296 --build-arg CPU_LIMIT=4 github.com/jpv-costa/ESA-SNAP-notebook.git
 ```
 
 Upon successful completion of the build, you can run the updated image, as you did in [this section](#Download), substituing `screamprobation/esa-snap-notebook:snap-8` for your new image name: `updated-esa-notebook`.
