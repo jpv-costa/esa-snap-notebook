@@ -25,11 +25,11 @@ RUN conda create --quiet --yes -p $CONDA_DIR/envs/$conda_env python=$py_ver ipyt
 
 FROM mundialis/esa-snap:ubuntu
 ARG conda_env
-ARG MEM_LIMIT
-ARG CPU_LIMIT
 ARG NB_USER="jovyan"
 ARG NB_UID="1000"
 ARG NB_GID="100"
+ARG MEM_LIMIT
+ARG CPU_LIMIT
 
 USER root
 
