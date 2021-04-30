@@ -45,20 +45,12 @@ snappy_esa.ProductIO.readProduct("/path/to/product")
 
 Given that `snappy` with python from v.3.7 onwards raises an `Import error - snappy / jpy`, the packages are installed in an anaconda python v.3.6 environment dubbed `python36`, as mentioned [here](https://forum.step.esa.int/t/modulenotfounderror-no-module-named-jpyutil/25785/3?u=screamprobation). This environment is set to be the default conda environment; however, if you get an error importing the package, make sure you are using the `python36` kernel.
 
-# Memory usage limit
+# Change default Jupyter memory usage limit and CPU limit
 
-By default, the notebook memory limit of this image was set to 6GB. If you wish to alter this value, you'll have to create a Dockerfile pulling from `screamprobation/esa-snap-notebook:snap-8`, and set the environment variable MEM_LIMIT to the desired limit (in bytes), as such:
+By default, the notebook memory limit of this image was set to 6GB, with a CPU limit of 6 cores. If you wish to alter these values, you'll have to build an image with this repository's Dockerfile, passing as `--build-arg` the desired memory limit (in bytes) and CPU limit values as the MEM_LIMIT and CPU_LIMIT, respectively. For example, to build an image with a limit of 4GB (4294967296 bytes) and 4 cores, with the tag `updated-esa-notebook`, you can use this command:
 
-```dockerfile
-FROM screamprobation/esa-snap-notebook:snap-8
-# Set memory usage limit to 6GB
-ENV MEM_LIMIT 6442450944
+```console
+$ docker build https://github.com/jpv-costa/ESA-SNAP-notebook.git -t updated-esa-notebook --build-arg MEM_LIMIT=4294967296 CPU_LIMIT=4
 ```
 
-Then you can build your image on the terminal, which you could name, for instance, `updated-esa-notebook`:
-
-```
-$ docker build -t updated-esa-notebook .
-```
-
-Finally, you can run the updated image, as you did in [this section](#Download), substituing `screamprobation/esa-snap-notebook:snap-8` for your new image name: `updated-esa-notebook`.
+Upon successful completion of the build, you can run the updated image, as you did in [this section](#Download), substituing `screamprobation/esa-snap-notebook:snap-8` for your new image name: `updated-esa-notebook`.
