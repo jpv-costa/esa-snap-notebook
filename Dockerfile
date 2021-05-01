@@ -12,7 +12,7 @@ ARG conda_env
 ARG py_ver=3.6
 
 # you can add additional libraries you want conda to install by listing them below the first line and ending with "&& \"
-RUN conda create --quiet --yes -p $CONDA_DIR/envs/$conda_env python=$py_ver ipython ipykernel &&  \            
+RUN conda create --quiet --yes -p $CONDA_DIR/envs/$conda_env python=$py_ver ipython ipykernel \            
     'dask' \
     'dill' \
     'h5py' \
@@ -112,5 +112,3 @@ RUN echo "c.ResourceUseDisplay.track_cpu_percent = True" >> /etc/jupyter/jupyter
 # Configure container startup
 ENTRYPOINT ["tini", "-g", "--"]
 CMD ["start-notebook.sh"]
-
-
