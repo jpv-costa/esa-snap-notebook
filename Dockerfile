@@ -60,7 +60,7 @@ ENV CONDA_DEFAULT_ENV=${conda_env} \
     JUPYTER_ENABLE_LAB=TRUE \
     # Set memory usage limit
     MEM_LIMIT=${MEM_LIMIT} \
-    PREFIX=/srv/conda/envs/notebook
+    PREFIX=$CONDA_DIR/envs/notebook
 
 RUN $PREFIX/snap/bin/snap --nosplash --nogui --modules --install org.esa.snap.idepix.core && \
     $PREFIX/snap/bin/snap --nosplash --nogui --modules --install org.esa.snap.idepix.olci
