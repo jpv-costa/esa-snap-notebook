@@ -50,19 +50,17 @@ RUN conda config --append channels terradue && \
     fix-permissions /home/$NB_USER && \
     conda clean --all -f -y && \
     # create Python 3.x environment and link it to jupyter
-    $CONDA_DIR/envs/${conda_env}/bin/python -m ipykernel install --user --name=${conda_env} && \
+    $CONDA_DIR/envs/$conda_env/bin/python -m ipykernel install --user --name=${conda_env} && \
     fix-permissions $CONDA_DIR && \
-    fix-permissions /home/$NB_USER
+    fix-permissions /home/$NB_USER && \
+    /opt/conda/envs/$conda_env/snap/bin/snap --nosplash --nogui --modules --install org.esa.snap.idepix.core && \
+    /opt/conda/envs/$conda_env/snap/bin/snap --nosplash --nogui --modules --install org.esa.snap.idepix.olci
 
 # set this environment to be the default one
 ENV CONDA_DEFAULT_ENV=${conda_env} \
     # Enable jupyterlab
     JUPYTER_ENABLE_LAB=TRUE \
     # Set memory usage limit
-    MEM_LIMIT=${MEM_LIMIT} \
-    PREFIX=$CONDA_DIR/envs/notebook
-
-RUN $PREFIX/snap/bin/snap --nosplash --nogui --modules --install org.esa.snap.idepix.core && \
-    $PREFIX/snap/bin/snap --nosplash --nogui --modules --install org.esa.snap.idepix.olci
+    MEM_LIMIT=${MEM_LIMIT}
 
 ENV GPT_BIN=$PREFIX/snap/bin/gpt
