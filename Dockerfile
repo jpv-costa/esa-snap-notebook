@@ -74,15 +74,15 @@ RUN conda config --append channels terradue && \
     snap=8.0.0=py38_2 \
     jupyter-resource-usage=0.6.0 && \
     # Install snappy package
-    /opt/conda/envs/$conda_env/bin/python \
-    /opt/conda/envs/$conda_env/snap/.snap/snap-python/snappy/setup.py install && \
+    python \
+    $CONDA_DIR/snap/.snap/snap-python/snappy/setup.py install && \
     # Rename package to snappy_esa to avoid conflicts with google's snappy package
     mv $SITE_PACKAGES/snappy $SITE_PACKAGES/snappy_esa && \
     mv $SITE_PACKAGES/snappy_esa/snappy.ini $SITE_PACKAGES/snappy_esa/snappy_esa.ini && \    
     $CONDA_DIR/snap/bin/snap --nosplash --nogui --modules --install org.esa.snap.idepix.core && \
     $CONDA_DIR/snap/bin/snap --nosplash --nogui --modules --install org.esa.snap.idepix.olci && \
     # Install python packages from the requirements file    
-    /opt/conda/envs/$conda_env/bin/pip install --no-cache-dir -r requirements.txt && \    
+    pip install --no-cache-dir -r requirements.txt && \    
     fix-permissions $CONDA_DIR && \
     fix-permissions /home/$NB_USER && \
     conda clean --all -f -y
