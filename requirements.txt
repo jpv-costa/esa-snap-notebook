@@ -10,3 +10,5 @@ pyshp==2.1.3
 Shapely==1.7.1
 jupyterlab-system-monitor==0.8.0
 Cerberus==1.3.3
+eodag==2.2.0
+eodag-sentinelsat==0.3.0
