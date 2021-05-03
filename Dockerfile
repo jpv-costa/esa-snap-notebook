@@ -24,7 +24,7 @@ RUN apt-get update -y && \
     apt-get install -y libgeos-dev && \
     apt-get install -y libgdal-dev && \
     apt-get install -y --no-install-recommends \
-    software-properties-common=* && \
+    software-properties-common=0.99.10 && \
     add-apt-repository ppa:deadsnakes/ppa
 
 # Switch back to jovyan to avoid accidental container runs as root
