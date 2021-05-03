@@ -1,4 +1,4 @@
-ARG BASE_CONTAINER=jupyter/tensorflow-notebook
+ARG BASE_CONTAINER=jupyter/tensorflow-notebook:bbf0ada0a935
 FROM $BASE_CONTAINER
 
 # Set jupyter default memory usage limit to 6GB (in bytes)
@@ -10,8 +10,12 @@ ARG conda_env=python38
 ARG py_ver=3.8
 
 USER root
+ADD "snap-demo.ipynb" $HOME
 RUN echo "c.ResourceUseDisplay.track_cpu_percent = True" >> /etc/jupyter/jupyter_notebook_config.py && \
-    echo "c.ResourceUseDisplay.cpu_limit = ${CPU_LIMIT}" >> /etc/jupyter/jupyter_notebook_config.py
+    echo "c.ResourceUseDisplay.cpu_limit = ${CPU_LIMIT}" >> /etc/jupyter/jupyter_notebook_config.py && \
+    cd $HOME && \
+    echo $PWD && \    
+    fix-permissions snap-demo.ipynb
 COPY --chown=${NB_UID}:${NB_GID} requirements.txt ./
 
 RUN apt-get update -y && \
