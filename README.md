@@ -9,6 +9,11 @@
 
 esa-snap-notebook is a community maintained Jupyter Docker Stack image of the [ESA SNAP toolbox (SNAP 8)](http://step.esa.int/main/toolboxes/snap/), installed with: [apache-beam](https://beam.apache.org/) for parallel pre-procesing of remote sensing imagery; [xarray](http://xarray.pydata.org/en/stable/); [dask](https://dask.org/); [scipy](https://www.scipy.org/); [matplotlib](https://matplotlib.org/); [seaborn](https://seaborn.pydata.org/); [numpy](https://numpy.org/); [pandas](https://pandas.pydata.org/); and ML frameworks, such as [scikit-learn](https://scikit-learn.org/stable/) and [tensorflow 2.X](https://www.tensorflow.org/).
 
+# Binder
+
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/jpv-costa/ESA-SNAP-notebook/main)
+https://mybinder.org/v2/gh/jpv-costa/ESA-SNAP-notebook/main
+
 # Download
 
 The image is available on a [Docker Hub repository](https://hub.docker.com/repository/docker/screamprobation/esa-snap-notebook). To download it, you can pull it with the following docker command (make sure you have docker installed):

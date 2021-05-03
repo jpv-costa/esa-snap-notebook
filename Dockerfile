@@ -6,8 +6,8 @@ ARG MEM_LIMIT=6442450944
 # Set jupyter default cpu usage limit to 6 cores
 ARG CPU_LIMIT=6
 # Set name of the default conda environment
-ARG conda_env=python38
-ARG py_ver=3.8
+#ARG conda_env=python38
+#ARG py_ver=3.8
 
 USER root
 ADD "snap-demo.ipynb" $HOME
@@ -16,6 +16,7 @@ RUN echo "c.ResourceUseDisplay.track_cpu_percent = True" >> /etc/jupyter/jupyter
     cd $HOME && \
     echo $PWD && \    
     fix-permissions snap-demo.ipynb
+
 COPY --chown=${NB_UID}:${NB_GID} requirements.txt ./
 
 RUN apt-get update -y && \
@@ -30,41 +31,65 @@ RUN apt-get update -y && \
 # Switch back to jovyan to avoid accidental container runs as root
 USER $NB_UID
 
+# RUN conda config --append channels terradue && \
+#     conda config --append channels defaults && \
+#     conda list -e > conda_requirements.txt && \
+#     echo $' \n\
+#     ipython=7.23.0 \n\
+#     ipykernel=5.5.3 \n\
+#     java-1.7.0-openjdk-cos6-x86_64=1.7.0.131 \n\
+#     jpy=0.9.0 \n\
+#     snap=8.0.0=py38_2 \n\
+#     jupyter-resource-usage=0.6.0' >> conda_requirements.txt && \
+#     conda create --yes -p $CONDA_DIR/envs/$conda_env python=$py_ver --file conda_requirements.txt && \
+#     # Install snappy package
+#     /opt/conda/envs/$conda_env/bin/python /opt/conda/envs/$conda_env/snap/.snap/snap-python/snappy/setup.py install && \
+#     # Rename package to snappy_esa to avoid conflicts with google's snappy package
+#     mv /opt/conda/envs/$conda_env/lib/python3.8/site-packages/snappy /opt/conda/envs/$conda_env/lib/python3.8/site-packages/snappy_esa && \
+#     mv /opt/conda/envs/$conda_env/lib/python3.8/site-packages/snappy_esa/snappy.ini /opt/conda/envs/$conda_env/lib/python3.8/site-packages/snappy_esa/snappy_esa.ini && \
+#     # Fix env permissions and install python packages from the requirements file
+#     fix-permissions /opt/conda/envs/$conda_env/snap/ && \
+#     fix-permissions /opt/conda/envs/$conda_env/lib/python3.8/site-packages/ && \
+#     /opt/conda/envs/$conda_env/bin/pip install --no-cache-dir -r requirements.txt && \   
+#     # create Python 3.x environment and link it to jupyter
+#     $CONDA_DIR/envs/$conda_env/bin/python -m ipykernel install --user --name=${conda_env} && \
+#     /opt/conda/envs/$conda_env/snap/bin/snap --nosplash --nogui --modules --install org.esa.snap.idepix.core && \
+#     /opt/conda/envs/$conda_env/snap/bin/snap --nosplash --nogui --modules --install org.esa.snap.idepix.olci && \
+#     fix-permissions $CONDA_DIR && \
+#     fix-permissions /home/$NB_USER && \
+#     conda clean --all -f -y
+
+# Enable jupyterlab
+ENV JUPYTER_ENABLE_LAB=TRUE \
+    # Set memory usage limit
+    MEM_LIMIT=${MEM_LIMIT} \
+    SITE_PACKAGES=/opt/conda/lib/python3.8/site-packages/ \
+    GPT_BIN=$CONDA_DIR/snap/bin/gpt
+
 RUN conda config --append channels terradue && \
     conda config --append channels defaults && \
-    conda list -e > conda_requirements.txt && \
-    echo $' \n\
-    ipython=7.23.0 \n\
-    ipykernel=5.5.3 \n\
-    java-1.7.0-openjdk-cos6-x86_64=1.7.0.131 \n\
-    jpy=0.9.0 \n\
-    snap=8.0.0=py38_2 \n\
-    jupyter-resource-usage=0.6.0' >> conda_requirements.txt && \
-    conda create --yes -p $CONDA_DIR/envs/$conda_env python=$py_ver --file conda_requirements.txt && \
+    conda install \                  
+    java-1.7.0-openjdk-cos6-x86_64=1.7.0.131 \
+    jpy=0.9.0 \
+    snap=8.0.0=py38_2 \
+    jupyter-resource-usage=0.6.0 && \
     # Install snappy package
-    /opt/conda/envs/$conda_env/bin/python /opt/conda/envs/$conda_env/snap/.snap/snap-python/snappy/setup.py install && \
+    /opt/conda/envs/$conda_env/bin/python \
+    /opt/conda/envs/$conda_env/snap/.snap/snap-python/snappy/setup.py install && \
     # Rename package to snappy_esa to avoid conflicts with google's snappy package
-    mv /opt/conda/envs/$conda_env/lib/python3.8/site-packages/snappy /opt/conda/envs/$conda_env/lib/python3.8/site-packages/snappy_esa && \
-    mv /opt/conda/envs/$conda_env/lib/python3.8/site-packages/snappy_esa/snappy.ini /opt/conda/envs/$conda_env/lib/python3.8/site-packages/snappy_esa/snappy_esa.ini && \
-    # Fix env permissions and install python packages from the requirements file
-    fix-permissions /opt/conda/envs/$conda_env/snap/ && \
-    fix-permissions /opt/conda/envs/$conda_env/lib/python3.8/site-packages/ && \
-    /opt/conda/envs/$conda_env/bin/pip install --no-cache-dir -r requirements.txt && \
+    mv $SITE_PACKAGES/snappy $SITE_PACKAGES/snappy_esa && \
+    mv $SITE_PACKAGES/snappy_esa/snappy.ini $SITE_PACKAGES/snappy_esa/snappy_esa.ini && \    
+    $CONDA_DIR/snap/bin/snap --nosplash --nogui --modules --install org.esa.snap.idepix.core && \
+    $CONDA_DIR/snap/bin/snap --nosplash --nogui --modules --install org.esa.snap.idepix.olci && \
+    # Install python packages from the requirements file    
+    /opt/conda/envs/$conda_env/bin/pip install --no-cache-dir -r requirements.txt && \    
     fix-permissions $CONDA_DIR && \
     fix-permissions /home/$NB_USER && \
-    conda clean --all -f -y && \
-    # create Python 3.x environment and link it to jupyter
-    $CONDA_DIR/envs/$conda_env/bin/python -m ipykernel install --user --name=${conda_env} && \
-    fix-permissions $CONDA_DIR && \
-    fix-permissions /home/$NB_USER && \
-    /opt/conda/envs/$conda_env/snap/bin/snap --nosplash --nogui --modules --install org.esa.snap.idepix.core && \
-    /opt/conda/envs/$conda_env/snap/bin/snap --nosplash --nogui --modules --install org.esa.snap.idepix.olci
+    conda clean --all -f -y
 
-# set this environment to be the default one
-ENV CONDA_DEFAULT_ENV=${conda_env} \
-    # Enable jupyterlab
-    JUPYTER_ENABLE_LAB=TRUE \
-    # Set memory usage limit
-    MEM_LIMIT=${MEM_LIMIT}
-
-ENV GPT_BIN=$PREFIX/snap/bin/gpt
+# # set this environment to be the default one
+# ENV CONDA_DEFAULT_ENV=${conda_env} \
+#     # Enable jupyterlab
+#     JUPYTER_ENABLE_LAB=TRUE \
+#     # Set memory usage limit
+#     MEM_LIMIT=${MEM_LIMIT}
