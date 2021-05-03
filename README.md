@@ -1,7 +1,3 @@
-# esa-snap-notebook
-
-esa-snap-notebook is a community maintained Jupyter Docker Stack image
-
 # ESA Sentinel Toolboxes (SNAP 8) - Jupyter Python Notebook Image
 
 [![Python 3.6](https://img.shields.io/badge/python-3.6-blue.svg)](https://www.python.org/downloads/release/python-360/)
