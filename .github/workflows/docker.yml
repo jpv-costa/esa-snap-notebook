@@ -50,7 +50,7 @@ jobs:
                   context: '.'
                   file: 'Dockerfile'
                   tags: |
-                      jpvcosta / esa-snap-notebook:latest
+                      jpvcosta/esa-snap-notebook:latest
                   push: false
             - name: Run tests
               run: python -m pytest tests
@@ -67,4 +67,4 @@ jobs:
                   file: 'Dockerfile'
                   push: ${{ github.event_name != 'pull_request' }}
                   tags: |
-                      jpvcosta / esa-snap-notebook:${{ steps.getrefs.outputs.sha12 }}, jpvcosta / esa-snap-notebook:latest
+                      jpvcosta/esa-snap-notebook:${{ steps.getrefs.outputs.sha12 }}, jpvcosta/esa-snap-notebook:latest
