@@ -6,8 +6,8 @@ ARG mem_limit=6442450944
 # Set jupyter default cpu usage limit to 6 cores
 ARG cpu_limit=6
 # Set name of the default conda environment
-#ARG conda_env=python38
-#ARG py_ver=3.8
+ARG conda_env=python38
+ARG py_ver=3.8
 
 USER root
 ADD "snap-demo.ipynb" $HOME
