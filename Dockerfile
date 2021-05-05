@@ -55,7 +55,7 @@ RUN conda config --append channels terradue && \
     ./python -m ipykernel install --user --name=${conda_env} && \
     $SNAP_HOME/bin/snap --nosplash --nogui --modules --install org.esa.snap.idepix.core && \
     $SNAP_HOME/bin/snap --nosplash --nogui --modules --install org.esa.snap.idepix.olci && \
-    $SNAP_HOME/bin/snap --nosplash --nogui --modules --list --refresh && \
+    # $SNAP_HOME/bin/snap --nosplash --nogui --modules --list --refresh && \
     fix-permissions $CONDA_DIR && \
     fix-permissions /home/$NB_USER && \
     conda clean --all -f -y
