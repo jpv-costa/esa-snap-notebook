@@ -1,4 +1,4 @@
-name: Build Docker Images 4GB
+name: Build Docker Images PySpark
 
 # For more details on events that trigger workflows see:
 # https://docs.github.com/en/actions/reference/events-that-trigger-workflows
