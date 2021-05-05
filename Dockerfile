@@ -1,5 +1,5 @@
-ARG base_container=jupyter/tensorflow-notebook:bbf0ada0a935
-FROM $base_container
+ARG BASE_CONTAINER=jupyter/tensorflow-notebook:bbf0ada0a935
+FROM $BASE_CONTAINER
 
 # Set jupyter default memory usage limit to 6GB (in bytes)
 ARG mem_limit=6442450944

@@ -52,7 +52,7 @@ jobs:
                   tags: |
                       jpvcosta/esa-snap-notebook:pyspark-latest
                   push: false
-                  build-args: base_container=jupyter/pyspark-notebook
+                  build-args: BASE_CONTAINER=jupyter/pyspark-notebook:python-3.8.8
             - name: Run tests
               run: python -m pytest tests
             - name: Login to Docker Hub
@@ -69,4 +69,4 @@ jobs:
                   push: ${{ github.event_name != 'pull_request' }}
                   tags: |
                       jpvcosta/esa-snap-notebook:pyspark-${{ steps.getrefs.outputs.sha12 }}, jpvcosta/esa-snap-notebook:pyspark-latest
-                  build-args: base_container=jupyter/pyspark-notebook
+                  build-args: BASE_CONTAINER=jupyter/pyspark-notebook:python-3.8.8
