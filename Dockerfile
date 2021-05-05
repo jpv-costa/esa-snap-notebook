@@ -62,6 +62,8 @@ RUN conda config --append channels terradue && \
 
 # Enable jupyterlab
 ENV JUPYTER_ENABLE_LAB=TRUE \
+    # Set default environment
+    CONDA_DEFAULT_ENV=${conda_env} \
     # Set memory usage limit
     MEM_LIMIT=${mem_limit} \    
     GPT_BIN=$SNAP_HOME/bin/gpt
