@@ -1,5 +1,5 @@
-ARG BASE_CONTAINER=jupyter/tensorflow-notebook:bbf0ada0a935
-FROM $BASE_CONTAINER
+ARG base_container=jupyter/tensorflow-notebook:bbf0ada0a935
+FROM $base_container
 
 # Set jupyter default memory usage limit to 6GB (in bytes)
 ARG mem_limit=6442450944
@@ -7,15 +7,13 @@ ARG mem_limit=6442450944
 ARG cpu_limit=6
 # Set name of the default conda environment
 ARG conda_env=python38
+# Set the python version of the environment
 ARG py_ver=3.8
 
 USER root
-ADD "snap-demo.ipynb" $HOME
+
 RUN echo "c.ResourceUseDisplay.track_cpu_percent = True" >> /etc/jupyter/jupyter_notebook_config.py && \
-    echo "c.ResourceUseDisplay.cpu_limit = ${cpu_limit}" >> /etc/jupyter/jupyter_notebook_config.py && \
-    cd $HOME && \
-    echo $PWD && \    
-    fix-permissions snap-demo.ipynb
+    echo "c.ResourceUseDisplay.cpu_limit = ${cpu_limit}" >> /etc/jupyter/jupyter_notebook_config.py
 
 COPY --chown=${NB_UID}:${NB_GID} requirements.txt ./
 
@@ -57,6 +55,7 @@ RUN conda config --append channels terradue && \
     ./python -m ipykernel install --user --name=${conda_env} && \
     $SNAP_HOME/bin/snap --nosplash --nogui --modules --install org.esa.snap.idepix.core && \
     $SNAP_HOME/bin/snap --nosplash --nogui --modules --install org.esa.snap.idepix.olci && \
+    $SNAP_HOME/bin/snap --nosplash --nogui --modules --list --refresh && \
     fix-permissions $CONDA_DIR && \
     fix-permissions /home/$NB_USER && \
     conda clean --all -f -y

@@ -11,21 +11,20 @@ esa-snap-notebook is a community maintained Jupyter Docker Stack image of the [E
 
 # Binder
 
-[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/jpv-costa/ESA-SNAP-notebook/main)
-https://mybinder.org/v2/gh/jpv-costa/ESA-SNAP-notebook/main
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/jpv-costa/esa-snap-notebook/main)
 
 # Download
 
-The image is available on a [Docker Hub repository](https://hub.docker.com/repository/docker/screamprobation/esa-snap-notebook). To download it, you can pull it with the following docker command (make sure you have docker installed):
+The image is available on a [Docker Hub repository](https://hub.docker.com/repository/docker/jpvcosta/esa-snap-notebook). To download it, you can pull it with the following docker command (make sure you have docker installed):
 
 ```console
-$ docker pull screamprobation/esa-snap-notebook:snap-8
+$ docker pull jpvcosta/esa-snap-notebook
 ```
 
 Then, you can run the image with a mounted volume like so:
 
 ```console
-$ docker run -p 8888:8888 -v /path/to/local/folder:/home/jovyan/work screamprobation/esa-snap-notebook:snap-8
+$ docker run -p 8888:8888 -v /path/to/local/folder:/home/jovyan/work jpvcosta/esa-snap-notebook
 ```
 
 If the previous command runs successfully, you should view the jupyterlab link on the terminal screen, which you can access by copying and pasting it on your browser.
@@ -46,9 +45,10 @@ snappy_esa.ProductIO.readProduct("/path/to/product")
 
 [This](https://senbox.atlassian.net/wiki/spaces/SNAP/pages/19300362/How+to+use+the+SNAP+API+from+Python) resource might be helpful if you want to learn how to use the SNAP API in Python. [This](https://github.com/techforspace/sentinel) tutorial and [these](https://github.com/senbox-org/snap-engine/tree/master/snap-python/src/main/resources/snappy/examples) example implementations might also be of use.
 
+<!--
 # Additional Info
 
-Given that `snappy` with python from v.3.7 onwards raises an `Import error - snappy / jpy`, the packages are installed in an anaconda python v.3.6 environment dubbed `python36`, as mentioned [here](https://forum.step.esa.int/t/modulenotfounderror-no-module-named-jpyutil/25785/3?u=screamprobation). This environment is set to be the default conda environment; however, if you get an error importing the package, make sure you are using the `python36` kernel.
+Given that `snappy` with python from v.3.7 onwards raises an `Import error - snappy / jpy`, the packages are installed in an anaconda python v.3.6 environment dubbed `python36`, as mentioned [here](https://forum.step.esa.int/t/modulenotfounderror-no-module-named-jpyutil/25785/3?u=screamprobation). This environment is set to be the default conda environment; however, if you get an error importing the package, make sure you are using the `python36` kernel. -->
 
 # Change default Jupyter memory usage limit and CPU limit
 
@@ -58,4 +58,4 @@ By default, the notebook memory limit of this image was set to **6GB**, with a C
 $ docker build -t updated-esa-notebook --build-arg MEM_LIMIT=4294967296 --build-arg CPU_LIMIT=4 github.com/jpv-costa/ESA-SNAP-notebook.git#main
 ```
 
-Upon successful completion of the build, you can run the updated image, as you did in [this section](#Download), substituing `screamprobation/esa-snap-notebook:snap-8` for your new image name: `updated-esa-notebook`.
+Upon successful completion of the build, you can run the updated image, as you did in [this section](#Download), substituing `jpvcosta/esa-snap-notebook` for your new image name: `updated-esa-notebook`.
