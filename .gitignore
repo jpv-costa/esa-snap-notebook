@@ -93,3 +93,5 @@ generated/
 # Emacs temp and backup files
 *~
 \#*\#
+
+docker-compose.yaml

@@ -10,6 +10,8 @@ ARG conda_env=python38
 # Set the python version of the environment
 ARG py_ver=3.8
 
+RUN pip install jupyterlab-system-monitor==0.8.0
+
 USER root
 
 RUN echo "c.ResourceUseDisplay.track_cpu_percent = True" >> /etc/jupyter/jupyter_notebook_config.py && \
@@ -40,8 +42,7 @@ RUN conda config --append channels terradue && \
     ipykernel=5.5.3 \n\
     java-1.7.0-openjdk-cos6-x86_64=1.7.0.131 \n\
     jpy=0.9.0 \n\
-    snap=8.0.0=py38_2 \n\
-    jupyter-resource-usage=0.6.0' >> conda_requirements.txt && \
+    snap=8.0.0=py38_2' >> conda_requirements.txt && \
     conda create --yes -p $CONDA_DIR/envs/$conda_env python=$py_ver --file conda_requirements.txt && \
     # Install snappy package
     cd /opt/conda/envs/$conda_env/bin/ && \
