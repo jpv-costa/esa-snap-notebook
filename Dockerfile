@@ -38,7 +38,7 @@ USER $NB_UID
 ENV SITE_PACKAGES=$CONDA_DIR/envs/$conda_env/lib/python3.8/site-packages \
     SNAP_HOME=$CONDA_DIR/envs/$conda_env/snap
 
-RUN conda env create -p $CONDA_DIR/envs/$conda_env python=$py_ver -f environment.yml && \
+RUN conda env create -p $CONDA_DIR/envs/$conda_env -f environment.yml && \
     # Install snappy package
     cd /opt/conda/envs/$conda_env/bin/ && \
     ./python $SNAP_HOME/.snap/snap-python/snappy/setup.py install && \
