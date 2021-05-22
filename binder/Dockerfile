@@ -1,7 +1,7 @@
-ARG base_container=jpvcosta/esa-snap-notebook:pyspark-b972770073fa
-FROM $base_container
+ARG base_container=jpvcosta/esa-snap-notebook
+FROM $base_container:b972770073fa@sha256:ba9a415e5ea3dc1f460c8c8da3c6d1fce998f2d5ba1930158b4a0062cff20d61
 
-ENV TAG="pyspark-b972770073fa"
+ENV TAG="b972770073fa"
 
 COPY binder/snap-demo.ipynb .
 

@@ -1,6 +1,6 @@
 # ESA Sentinel Toolboxes (SNAP 8) - Jupyter Python Notebook Image
 
-[![Python 3.6](https://img.shields.io/badge/python-3.6-blue.svg)](https://www.python.org/downloads/release/python-360/)
+[![Python 3.6](https://img.shields.io/badge/python-3.6-blue.svg)](https://www.python.org/downloads/release/python-3810/)
 ![Docker Cloud Automated build](https://img.shields.io/docker/cloud/automated/jpvcosta/esa-snap-notebook)
 ![Docker Cloud Build Status](https://img.shields.io/docker/cloud/build/jpvcosta/esa-snap-notebook)
 ![Docker Image Size (tag)](https://img.shields.io/docker/image-size/jpvcosta/esa-snap-notebook/latest)
