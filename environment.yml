@@ -1,13 +1,14 @@
 channels:
+    # terradue must be first and then defaults, otherwise there will be package
+    # inconsistency errors
     - terradue
     - defaults
     - conda-forge
     - conda-forge/label/broken
 dependencies:
-    - python=3.8
-    - pip=21.0.1
-    - ipython=7.23.0
-    - ipykernel=5.5.3
+    - python=$py_ver
+    - ipython
+    - ipykernel
     - java-1.7.0-openjdk-cos6-x86_64=1.7.0.131
     - jpy=0.9.0
     - snap=8.0.0=py38_2
@@ -23,5 +24,3 @@ dependencies:
     - scipy=1.6
     - seaborn=0.11
     - statsmodels=0.12
-    - pip:
-          - -r requirements.txt

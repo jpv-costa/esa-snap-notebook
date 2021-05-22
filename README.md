@@ -1,6 +1,6 @@
 # ESA Sentinel Toolboxes (SNAP 8) - Jupyter Python Notebook Image
 
-[![Python 3.6](https://img.shields.io/badge/python-3.6-blue.svg)](https://www.python.org/downloads/release/python-3810/)
+[![Python 3.8](https://img.shields.io/badge/python-3.6-blue.svg)](https://www.python.org/downloads/release/python-3810/)
 ![Docker Cloud Automated build](https://img.shields.io/docker/cloud/automated/jpvcosta/esa-snap-notebook)
 ![Docker Cloud Build Status](https://img.shields.io/docker/cloud/build/jpvcosta/esa-snap-notebook)
 ![Docker Image Size (tag)](https://img.shields.io/docker/image-size/jpvcosta/esa-snap-notebook/latest)
@@ -12,7 +12,8 @@ esa-snap-notebook is a community maintained Jupyter Docker Stack image of the [E
 
 ## Binder
 
-You can test the image in the following binder, however, remember to switch to the `python38` kernel, otherwise the packages won't be found.
+You can play around with the image by clicking on the binder badge below; however, remember to switch to the `python38` kernel, otherwise you won't be able to used the installed packages.
+
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/jpv-costa/esa-snap-notebook/main)
 
 ## Download

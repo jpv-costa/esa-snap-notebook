@@ -20,6 +20,9 @@ RUN echo "c.ResourceUseDisplay.track_cpu_percent = True" >> /etc/jupyter/jupyter
 COPY --chown=${NB_UID}:${NB_GID} requirements.txt ./
 COPY --chown=${NB_UID}:${NB_GID} environment.yml ./
 
+#Update python version in the environment file
+RUN sed -i "s/\$py_ver/$py_ver/g" environment.yml
+
 RUN apt-get update -y && \
     # Install Proj4 and geo, which are depencies required by cartopy
     apt-get install -y --no-install-recommends \ 
@@ -39,13 +42,15 @@ USER $NB_UID
 ENV SITE_PACKAGES=$CONDA_DIR/envs/$conda_env/lib/python3.8/site-packages \
     SNAP_HOME=$CONDA_DIR/envs/$conda_env/snap
 
-RUN conda env create -p $CONDA_DIR/envs/$conda_env -f environment.yml && \
+RUN conda clean -a && conda env create -p $CONDA_DIR/envs/$conda_env -f environment.yml && \
     # Install snappy package
     cd /opt/conda/envs/$conda_env/bin/ && \
     ./python $SNAP_HOME/.snap/snap-python/snappy/setup.py install && \
     # Rename package to snappy_esa to avoid conflicts with google's snappy package
     mv $SITE_PACKAGES/snappy $SITE_PACKAGES/snappy_esa && \
     mv $SITE_PACKAGES/snappy_esa/snappy.ini $SITE_PACKAGES/snappy_esa/snappy_esa.ini && \
+    # Install python packages from the requirements file    
+    ./pip install --no-cache-dir -r $HOME/requirements.txt && \ 
     # create Python 3.x environment and link it to jupyter
     ./python -m ipykernel install --user --name=${conda_env} && \
     $SNAP_HOME/bin/snap --nosplash --nogui --modules --install org.esa.snap.idepix.core && \
