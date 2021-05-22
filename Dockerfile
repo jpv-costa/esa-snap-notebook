@@ -22,11 +22,15 @@ COPY --chown=${NB_UID}:${NB_GID} requirements.txt ./
 RUN apt-get update -y && \
     # Install Proj4 and geo, which are depencies required by cartopy
     apt-get install -y --no-install-recommends \ 
-    libproj-dev proj-data proj-bin libgeos-dev \
-    libgdal-dev software-properties-common=* && \
+    libproj-dev \
+    proj-data \
+    proj-bin \
+    libgeos-dev \
+    libgdal-dev \
+    software-properties-common=* && \
     add-apt-repository ppa:deadsnakes/ppa && \
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/*
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
 
 # Switch back to jovyan to avoid accidental container runs as root
 USER $NB_UID
