@@ -18,6 +18,7 @@ RUN echo "c.ResourceUseDisplay.track_cpu_percent = True" >> /etc/jupyter/jupyter
     echo "c.ResourceUseDisplay.cpu_limit = ${cpu_limit}" >> /etc/jupyter/jupyter_notebook_config.py
 
 COPY --chown=${NB_UID}:${NB_GID} requirements.txt ./
+COPY --chown=${NB_UID}:${NB_GID} environment.yml ./
 
 RUN apt-get update -y && \
     # Install Proj4 and geo, which are depencies required by cartopy

@@ -3,6 +3,8 @@ FROM $base_container:b972770073fa@sha256:ba9a415e5ea3dc1f460c8c8da3c6d1fce998f2d
 
 ENV TAG="b972770073fa"
 
+WORKDIR $HOME
+
 COPY binder/snap-demo.ipynb .
 
 # Fix permissions on snap-demo.ipynb as root
