@@ -1,5 +1,5 @@
-ARG BASE_CONTAINER=jupyter/tensorflow-notebook:bbf0ada0a935
-FROM $BASE_CONTAINER
+ARG BASE_CONTAINER=jupyter/tensorflow-notebook
+FROM $BASE_CONTAINER:bbf0ada0a935
 
 # Set jupyter default memory usage limit to 6GB (in bytes)
 ARG mem_limit=6442450944
@@ -10,7 +10,7 @@ ARG conda_env=python38
 # Set the python version of the environment
 ARG py_ver=3.8
 
-RUN pip install jupyterlab-system-monitor==0.8.0
+WORKDIR $HOME
 
 USER root
 
@@ -21,12 +21,12 @@ COPY --chown=${NB_UID}:${NB_GID} requirements.txt ./
 
 RUN apt-get update -y && \
     # Install Proj4 and geo, which are depencies required by cartopy
-    apt-get install -y libproj-dev proj-data proj-bin && \
-    apt-get install -y libgeos-dev && \
-    apt-get install -y libgdal-dev && \
-    apt-get install -y --no-install-recommends \
-    software-properties-common=* && \
-    add-apt-repository ppa:deadsnakes/ppa
+    apt-get install -y --no-install-recommends \ 
+    libproj-dev proj-data proj-bin libgeos-dev \
+    libgdal-dev software-properties-common=* && \
+    add-apt-repository ppa:deadsnakes/ppa && \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
 
 # Switch back to jovyan to avoid accidental container runs as root
 USER $NB_UID
@@ -34,29 +34,18 @@ USER $NB_UID
 ENV SITE_PACKAGES=$CONDA_DIR/envs/$conda_env/lib/python3.8/site-packages \
     SNAP_HOME=$CONDA_DIR/envs/$conda_env/snap
 
-RUN conda config --append channels terradue && \
-    conda config --append channels defaults && \
-    conda list -e > conda_requirements.txt && \
-    echo $' \n\
-    ipython=7.23.0 \n\
-    ipykernel=5.5.3 \n\
-    java-1.7.0-openjdk-cos6-x86_64=1.7.0.131 \n\
-    jpy=0.9.0 \n\
-    snap=8.0.0=py38_2' >> conda_requirements.txt && \
-    conda create --yes -p $CONDA_DIR/envs/$conda_env python=$py_ver --file conda_requirements.txt && \
+RUN conda env create -p $CONDA_DIR/envs/$conda_env python=$py_ver -f environment.yml && \
     # Install snappy package
     cd /opt/conda/envs/$conda_env/bin/ && \
     ./python $SNAP_HOME/.snap/snap-python/snappy/setup.py install && \
     # Rename package to snappy_esa to avoid conflicts with google's snappy package
     mv $SITE_PACKAGES/snappy $SITE_PACKAGES/snappy_esa && \
     mv $SITE_PACKAGES/snappy_esa/snappy.ini $SITE_PACKAGES/snappy_esa/snappy_esa.ini && \
-    # Install python packages from the requirements file    
-    ./pip install --no-cache-dir -r $HOME/requirements.txt && \   
     # create Python 3.x environment and link it to jupyter
     ./python -m ipykernel install --user --name=${conda_env} && \
     $SNAP_HOME/bin/snap --nosplash --nogui --modules --install org.esa.snap.idepix.core && \
     $SNAP_HOME/bin/snap --nosplash --nogui --modules --install org.esa.snap.idepix.olci && \
-    # $SNAP_HOME/bin/snap --nosplash --nogui --modules --list --refresh && \
+    # Fix permissions
     fix-permissions $CONDA_DIR && \
     fix-permissions /home/$NB_USER && \
     conda clean --all -f -y
