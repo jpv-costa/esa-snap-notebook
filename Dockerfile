@@ -168,8 +168,8 @@ COPY --chown=${NB_UID}:${NB_GID} environment.yml ./
 # RUN chmod a+rx /usr/local/bin/fix-permissions
 
 #Update python version in the environment file
-RUN sed -i "s/\$py_ver/$py_ver/g" environment.yml \
-    && cat environment.yml
+# RUN sed -i "s/\$py_ver/$py_ver/g" environment.yml \
+#     && cat environment.yml
 
 # RUN apt-get update -y && \
 #     # Install Proj4 and geo, which are depencies required by cartopy
@@ -214,7 +214,7 @@ RUN apk add --no-cache bash \
 # Enable jupyterlab
 ENV JUPYTER_ENABLE_LAB=TRUE \
     # Set default environment
-    CONDA_DEFAULT_ENV=${conda_env} \
+    # CONDA_DEFAULT_ENV=${conda_env} \
     # Set memory usage limit
     MEM_LIMIT=${mem_limit} \
     GPT_BIN=$SNAP_HOME/bin/gpt
