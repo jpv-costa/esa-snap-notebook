@@ -18,9 +18,9 @@ def get_operator_help(operator):
     print("Operator name: {}".format(op_spi.getOperatorDescriptor().getName()))
     print("Operator alias: {}\n".format(op_spi.getOperatorDescriptor().getAlias()))
     print("Parameters:\n")
-    param_Desc = op_spi.getOperatorDescriptor().getParameterDescriptors()
+    param_desc = op_spi.getOperatorDescriptor().getParameterDescriptors()
 
-    for param in param_Desc:
+    for param in param_desc:
         print(
             "{}: {}\nDefault Value: {}\n".format(
                 param.getName(), param.getDescription(), param.getDefaultValue()
