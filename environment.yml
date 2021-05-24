@@ -3,18 +3,16 @@ channels:
     # terradue must be first and then defaults, otherwise there will be package
     # inconsistency errors
     - terradue
-    # - defaults
+    - defaults
     - conda-forge
-    # - conda-forge/label/broken
+    #- conda-forge/label/broken
 dependencies:
-    # - snap=8.0.0=py38_2
-    # - python=$py_ver
-    - snap
-    # - python=$py_ver
+    - java-1.7.0-openjdk-cos6-x86_64=1.7.0.131
+    - jpy=0.9.0
+    - snap=8.0.0=py37_2
+    - python=$py_ver
     # - ipython
     # - ipykernel
-    # - java-1.7.0-openjdk-cos6-x86_64=1.7.0.131
-    # - jpy=0.9.0
     # - conda-forge::blas=*=openblas
     # - bokeh=2.3
     # - cython=0.29
